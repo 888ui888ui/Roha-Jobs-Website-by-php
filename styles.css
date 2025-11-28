@@ -1,0 +1,480 @@
+
+/* Custom properties for easy color management - CONSOLIDATED & FINALIZED */
+:root {
+    --primary-color: #ff0000; /* Purple */
+    --secondary-color: #ffffff; /* Gold/Olive */
+       --primary-hover-shade: #CC0000; /* Darker red for hover state */
+    --secondary-hover-shade: #CCCCCC; /* Light gray for secondary hover on white elements */
+    
+    
+    /* NEW: Prominent Logo and Navbar Heights (80px Logo Height) */
+    --logo-height-final: 80px; 
+    --navbar-total-height: 100px; /* Increased to give 10px padding top/bottom around the 80px logo */
+}
+
+/* GENERAL FONTS */
+body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Navbar Background */
+.custom-navbar {
+    background-color: #e9181c !important;
+}
+
+/* Nav Menu Text */
+.custom-navbar .nav-link,
+.custom-navbar .navbar-brand,
+.custom-navbar .nav-text,
+.custom-navbar .recruiters-text {
+    color: #fff !important;
+    font-weight: 500;
+}
+
+/* Hover */
+.custom-navbar .nav-link:hover,
+.custom-navbar .recruiters-text:hover {
+    color: #ffecec !important;
+}
+
+/* Toggler icon fix for dark background */
+.navbar-toggler {
+    border-color: #fff;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+.navbar {
+    min-height: var(--navbar-total-height);
+    display: flex; 
+    align-items: center; /* Vertically center all content */
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* 2. Logo Container (.navbar-brand) */
+.navbar-brand {
+    padding: 0 !important; 
+    height: var(--logo-height-final); 
+    display: flex;
+    align-items: center;
+}
+
+/* 3. Logo Image Styling */
+.logo-img {
+    height: 100px;;
+    width: auto;
+    display: block !important;
+    margin: 0 !important;
+}
+/* ... rest of your CSS continues below ... */
+
+/* --- BUTTONS & LINKS (Navbar) --- */
+.signup-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 25px;
+}
+
+.signup-btn:hover {
+    background-color: #7e2178;
+    color: white;
+}
+
+.recruiters-text {
+    font-weight: 600;
+    color: var(--secondary-color) !important;
+}
+
+/* LOGIN BUTTON STYLING */
+.navbar-nav .login-btn-styled {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-radius: 25px; /* Consistent with signup-btn */
+    padding: 8px 20px !important; 
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-nav .login-btn-styled:hover {
+    background-color: #7e2178 !important;
+    color: white !important;
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.hero-title {
+    font-size: 60px;
+    font-weight: 800;
+    color: var(--primary-color);
+}
+
+.hero-subtitle {
+    font-size: 22px;
+    color: #444;
+    margin-top: -10px;
+}
+
+.hero-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 30px;
+    font-size: 18px;
+}
+
+.hero-btn:hover {
+    background-color: #7e2178;
+}
+
+.search-box {
+    border: 2px solid var(--primary-color);
+    border-radius: 40px;
+    width: 380px;
+    background: white;
+}
+
+.search-input {
+    border-radius: 40px;
+    border: none;
+    padding-left: 15px;
+    height: 45px;
+}
+
+.search-input:focus {
+    box-shadow: none;
+}
+
+.search-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: 30px;
+}
+
+.search-btn:hover {
+    background-color: #8d7533;
+}
+
+/* HERO IMAGE */
+.hero-image img {
+    width: 430px;
+    height: auto;
+}
+
+/* --- SECTION TITLES --- */
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+.section-subtitle {
+    color: var(--light-text-color);
+    font-size: 1.1rem;
+}
+
+/* --- CTA EMPLOYERS --- */
+.cta-employers {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+.cta-title {
+    font-size: 36px;
+    font-weight: 700;
+}
+.cta-text {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.employer-btn {
+    background-color: white;
+    color: var(--primary-color);
+    border-radius: 30px;
+    font-weight: 600;
+}
+.employer-btn:hover {
+    background-color: #f4f4f4;
+}
+
+/* --- FOOTER STYLING --- */
+.zele-footer {
+    background: #e9181c;
+    color: white;
+    padding: 50px 0 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+}
+
+.footer-title {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.footer-text {
+    margin-top: 30px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.footer-heading {
+    color: #AA8B3F;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.footer-section ul {
+    padding: 0;
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.footer-section ul li a:hover {
+    color: var(--secondary-color);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(170, 139, 63, 0.4);
+    font-size: 14px;
+    color: #eee;
+}
+
+/* --- JOB CARD STYLING --- */
+
+.job-card-image-format {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.job-card-image-format:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.job-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* RohaJobs Source and Bookmark Alignment */
+.top-right-elements {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* RohaJobs Text Styling */
+.rohajobs-source {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 3px 8px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    background-color: #f8f9fa;
+}
+
+.bookmark-icon svg {
+    color: var(--light-text-color);
+    transition: color 0.2s;
+}
+.bookmark-icon:hover svg {
+    color: var(--primary-color);
+}
+
+.category-tag {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+    margin-bottom: 15px;
+}
+
+.job-main-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.job-title-main {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.job-post-info {
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+    margin-bottom: 15px;
+}
+
+/* Metadata Row (Location, Date, Type, Salary, Contact) */
+.job-metadata {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+    color: var(--light-text-color);
+    font-size: 0.95rem;
+    flex-wrap: wrap;
+}
+.metadata-item {
+    display: flex;
+    align-items: center;
+}
+
+.job-description-snippet {
+    color: var(--text-color);
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+/* Footer for button placement */
+.job-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* --- APPLY NOW BUTTON STYLING --- */
+.btn-category {
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-apply-now {
+    display: inline-block;
+    padding: 10px 25px;
+    font-size: 1rem; 
+    font-weight: 600;
+
+    /* Default State (Primary Color) */
+    background-color: var(--primary-color) !important;
+    color: #ffffff !important;
+    border: 2px solid var(--primary-color) !important;
+    box-shadow: 0 4px 6px rgba(149, 41, 142, 0.2); 
+
+    width: auto;
+    max-width: none;
+}
+
+.btn-apply-now:hover {
+    /* Hover State (Secondary Color) */
+    background-color: var(--secondary-color) !important;
+    color: #ffffff !important;
+    border-color: var(--secondary-color) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 10px rgba(170, 139, 63, 0.3);
+}
+
+/* Removed redundant/unnecessary elements: */
+.company-logo-container,
+.job-company-name {
+    display: none;
+}
+
+/* --- SERVICES SECTION STYLING --- */
+
+/* Base Card Styling */
+.service-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 30px 20px;
+    height: 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover Effect: Highlight border with primary color and lift slightly */
+.service-card:hover {
+    box-shadow: 0 8px 15px rgba(149, 41, 142, 0.1);
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+/* Icon Styling */
+.service-icon {
+    background-color: var(--primary-color);
+    color: #ffffff; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 32px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(149, 41, 142, 0.4); 
+}
+
+/* Title Styling */
+.service-title {
+    color: var(--text-color);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* Description Styling */
+.service-description {
+    color: var(--light-text-color);
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+}
+
+/* Action Button Styling */
+.btn-service-action {
+    display: inline-block;
+    padding: 10px 25px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    
+    /* Default State: Primary Color */
+    background-color: var(--primary-color);
+    color: white;
+    border: 2px solid var(--primary-color);
+}
+
+/* Hover State: Secondary Color */
+.btn-service-action:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+    transform: scale(1.05);
+}
