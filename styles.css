@@ -78,7 +78,7 @@ body {
 }
 
 .signup-btn:hover {
-    background-color: #7e2178;
+    background-color: #e9181c;
     color: white;
 }
 
@@ -98,7 +98,7 @@ body {
 }
 
 .navbar-nav .login-btn-styled:hover {
-    background-color: #7e2178 !important;
+    background-color: #e9181c !important;
     color: white !important;
 }
 
@@ -129,7 +129,7 @@ body {
 }
 
 .hero-btn:hover {
-    background-color: #7e2178;
+    background-color: #e9181c;
 }
 
 .search-box {
@@ -391,14 +391,7 @@ body {
     max-width: none;
 }
 
-.btn-apply-now:hover {
-    /* Hover State (Secondary Color) */
-    background-color: var(--secondary-color) !important;
-    color: #ffffff !important;
-    border-color: var(--secondary-color) !important;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 10px rgba(170, 139, 63, 0.3);
-}
+
 
 /* Removed redundant/unnecessary elements: */
 .company-logo-container,
@@ -438,7 +431,7 @@ body {
     border-radius: 50%;
     font-size: 32px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(149, 41, 142, 0.4); 
+    box-shadow: 0 4px 12px red; 
 }
 
 /* Title Styling */
