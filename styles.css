@@ -11,6 +11,10 @@
     --logo-height-final: 80px; 
     --navbar-total-height: 100px; /* Increased to give 10px padding top/bottom around the 80px logo */
 }
+.carousel-item img {
+    height: 500px; /* Fixed height */
+    object-fit: cover; /* Forces the image to cover the 500px area, cropping the edges */
+}
 
 /* GENERAL FONTS */
 body {

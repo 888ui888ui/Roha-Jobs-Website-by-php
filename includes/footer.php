@@ -4,9 +4,9 @@
         
         <div class="footer-section footer-brand-col">
           
-                   <a class="navbar-brand" href="index.html">
-    <img src="images/rohajobs-logo6.png" alt="RohaJobs Logo" class="logo-img">
-</a>
+            <a class="navbar-brand" href="/zele/index.php">
+                <img src="/zele/images/rohajobs-logo6.png" alt="RohaJobs Logo" class="logo-img">
+            </a>
             <p class="footer-text">
                 Your trusted platform to find jobs faster, hire <br> smarter, and connect talent with opportunities.
             </p>
@@ -15,16 +15,15 @@
         <div class="footer-section">
             <h5 class="footer-heading" style="color:#AA8B3F;">Quick Links</h5>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="find-jobs.html">Find Jobs</a></li>
-                <li><a href="login.html">Log In</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="/zele/index.php">Home</a></li>
+                <li><a href="/zele/about.php">About</a></li>
+                <li><a href="/zele/find-jobs.php">Find Jobs</a></li>
+                <li><a href="/zele/contact.php">Contact Us</a></li>
             </ul>
         </div>
 
         <div class="footer-section">
-            <h5 class="footer-heading">Social Media</h5>
+             <h5 class="footer-heading" style="color:#AA8B3F;">Social Media</h5>
             <ul class="social-links">
                 <li><a href="https://t.me/solomon123123" target="_blank" aria-label="Telegram">
                     <span class="social-icon">✈️</span> Telegram

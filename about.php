@@ -1,3 +1,9 @@
+<?php 
+// 1. Define Paths to common files
+// Good practice is to centralize common elements in an 'includes' folder
+$navbar_path = 'includes/navbar.php';
+$footer_path = 'includes/footer.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +16,15 @@
 
 <body>
 
-<!-- NAVBAR -->
-<!-- Include Navbar -->
-<div id="include-navbar"></div>
+<?php 
+if (file_exists($navbar_path)) {
+    include($navbar_path);
+} else {
+    // Fallback if the include file is not found
+    echo '<nav class="navbar navbar-light bg-light">Navbar Missing!</nav>';
+}
+?>
+
 <section class="container py-5">
     <h1 class="text-center mb-4" style="color:red;">About Roha Jobs</h1>
 
@@ -42,9 +54,14 @@
     </div>
 </section>
 
-<!-- Include Footer -->
-<div id="include-footer"></div>
+<?php 
+if (file_exists($footer_path)) {
+    include($footer_path);
+} else {
+    echo '<footer>Footer Missing!</footer>';
+}
+?>
 
-<script src="assets/js/include.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

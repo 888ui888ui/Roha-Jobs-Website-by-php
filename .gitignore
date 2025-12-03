@@ -1,0 +1,11 @@
+# Configuration files
+config.php
+.env
+
+# Vendor libraries if you use Composer
+/vendor/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+*.sublime-*
