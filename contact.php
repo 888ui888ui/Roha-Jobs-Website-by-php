@@ -1,5 +1,11 @@
 <?php
-// Define Paths to common files (assuming you created the 'includes' folder)
+// CRITICAL: This line requires a file named 'db_config.php' to be present 
+// in the same directory. This file must contain the connection logic 
+// (e.g., $conn = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);).
+// Ensure this file exists and provides the $conn object.
+require_once('db_config.php'); 
+
+// Define Paths to common files
 $navbar_path = 'includes/navbar.php';
 $footer_path = 'includes/footer.php';
 
@@ -17,27 +23,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($name) || empty($email) || empty($message_content) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $message_status = '<div class="alert alert-danger">Please fill in all fields with valid information.</div>';
     } else {
-        // 3. EMAIL SETUP (Change these details to your server's configuration)
-        $to = "your.admin.email@example.com"; // Change this to your actual receiving email
-        $subject = "New Contact Form Submission from Roha Jobs";
-        $headers = "From: " . $name . " <" . $email . ">\r\n";
-        $headers .= "Reply-To: " . $email . "\r\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
         
-        $email_body = "You have received a new message from the contact form on your job portal.\n\n";
-        $email_body .= "Name: " . $name . "\n";
-        $email_body .= "Email: " . $email . "\n";
-        $email_body .= "Message:\n" . $message_content;
-
-        // 4. SEND EMAIL
-        // Note: The mail() function requires a properly configured web server (e.g., SMTP settings on XAMPP/WAMP/Live Server)
-        if (mail($to, $subject, $email_body, $headers)) {
-            $message_status = '<div class="alert alert-success">Thank you, ' . htmlspecialchars($name) . '! Your message has been sent successfully.</div>';
-            // Optional: Clear POST data to prevent re-submission on refresh
-            $_POST = array(); 
+        // --- DATABASE INSERTION LOGIC (Saves to the contact_messages table) ---
+        
+        // Check if database connection is available
+        if (!isset($conn) || $conn->connect_error) {
+             $message_status = '<div class="alert alert-danger">Database Error: Could not connect. Check db_config.php.</div>';
         } else {
-            $message_status = '<div class="alert alert-warning">Sorry, there was an issue sending your message. Please try again or contact us directly.</div>';
+            
+            // 3. Prepare the SQL statement using your table name: contact_messages
+            // Using prepared statements prevents SQL Injection attacks.
+            $sql = "INSERT INTO contact_messages (full_name, email, message_content) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            
+            if ($stmt === false) {
+                 // Handle SQL preparation error
+                 $message_status = '<div class="alert alert-danger">Database Error: Could not prepare statement. Please check your SQL configuration.</div>';
+            } else {
+                // 4. Bind parameters (s=string, s=string, s=string)
+                $stmt->bind_param("sss", $name, $email, $message_content);
+
+                // 5. Execute the statement
+                if ($stmt->execute()) {
+                    $message_status = '<div class="alert alert-success">Thank you, ' . htmlspecialchars($name) . '! Your message has been saved successfully. We will contact you soon.</div>';
+                    // Optional: Clear POST data to prevent re-submission on refresh
+                    $_POST = array(); 
+                } else {
+                    // Log the actual error for backend debugging
+                    error_log("Database insertion failed: " . $stmt->error);
+                    $message_status = '<div class="alert alert-warning">Sorry, there was an issue saving your message to the database. Please try again.</div>';
+                }
+                
+                // Close the statement
+                $stmt->close();
+            }
+
+            // Close the database connection
+            $conn->close();
         }
+
+        // --- END DATABASE INSERTION LOGIC ---
     }
 }
 ?>
@@ -49,6 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Contact - Roha Jobs</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -67,6 +94,7 @@ if (file_exists($navbar_path)) {
     <div class="row g-4">
 
         <div class="col-md-6">
+            <!-- Form posts back to itself (contact.php) -->
             <form class="p-4 shadow-sm rounded" style="border-left:4px solid #e9181c;" method="POST" action="contact.php">
                 
                 <div class="mb-3">
@@ -91,14 +119,21 @@ if (file_exists($navbar_path)) {
         </div>
 
         <div class="col-md-6">
-            <h4 style="color:#AA8B3F;">Contact Info</h4>
-            <p>📍 Addis Ababa, Ethiopia</p>
-            <p>📞 +251 912 34 56 78</p>
-            <p>📧 rohajobs.com</p>
+            <h4>Contact Info</h4>
+            
+            <p><i class="fas fa-map-marker-alt me-2 text-danger"></i> Addis Ababa, Ethiopia</p>
+            <p><i class="fas fa-phone me-2 text-danger"></i> +251 911 383 283</p>
+            <p><i class="fab fa-whatsapp me-2 text-success"></i> WhatsApp: +971 50 389 23 54</p>
+            <p><i class="fas fa-envelope me-2 text-info"></i> Email: info@rohajobs.com (Placeholder)</p>
 
-            <h5 class="mt-4" style="color:#AA8B3F;">Office Hours</h5>
-            <p>Monday – Friday: 9:00 AM – 5:00 PM</p>
-            <p>Saturday: 9:00 AM – 12:00 PM</p>
+
+            <h5 class="mt-4" >Office Address (UAE)</h5>
+            <p>
+                <i class="fas fa-building me-2 text-danger"></i> Dubai, Abu Dhabi, Al Reem Island near to <br> Carrefore Supermarket
+            </p>
+            <p>
+                <i class="fab fa-whatsapp me-2 text-success"></i> WhatsApp: +971 50 389 23 54
+            </p>
         </div>
 
     </div>

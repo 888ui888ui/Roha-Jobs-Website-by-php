@@ -1,11 +1,14 @@
 <?php
 // DB credentials for standard XAMPP setup
+//$host = 'rohajobs.great-site.net'; 
 $host = 'localhost'; 
+
 
 // Use the database name you confirmed (rohajobs)
 $dbname = 'rohajobs'; 
 
 // Standard XAMPP default username
+//$user = 'if0_40590905'; 
 $user = 'root'; 
 
 // Standard XAMPP default password (empty string)

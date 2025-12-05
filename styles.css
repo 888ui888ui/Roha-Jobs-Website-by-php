@@ -76,6 +76,10 @@ body {
 
 /* --- BUTTONS & LINKS (Navbar) --- */
 .signup-btn {
+
+
+
+    
     background-color: var(--primary-color);
     color: white;
     border-radius: 25px;

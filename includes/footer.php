@@ -25,7 +25,7 @@
         <div class="footer-section">
              <h5 class="footer-heading" style="color:#AA8B3F;">Social Media</h5>
             <ul class="social-links">
-                <li><a href="https://t.me/solomon123123" target="_blank" aria-label="Telegram">
+                <li><a href="https://t.me/RohaJob" target="_blank" aria-label="Telegram">
                     <span class="social-icon">✈️</span> Telegram
                 </a></li>
                 

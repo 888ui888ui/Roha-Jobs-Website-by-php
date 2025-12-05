@@ -17,6 +17,7 @@ $db_error_message = null;
 
 try {
     // Execute query using the $conn (MySQLi) object
+    $conn->set_charset("utf8"); // Ensure character set is set for safety
     $result = $conn->query($sql);
 
     // Fetch data
@@ -29,8 +30,9 @@ try {
 }
 
 // Close MySQLi connection after fetching data (optional)
-$conn->close();
-
+if (isset($conn)) {
+    $conn->close();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,26 +45,79 @@ $conn->close();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     
     <style>
-        /* Optional: Add CSS to ensure the carousel takes up appropriate space */
-        .hero {
-            display: flex;
-            align-items: center;
-            padding-top: 5rem;
-            padding-bottom: 5rem;
+        /* ================================== */
+        /* HERO SECTION OVERLAY STYLES */
+        /* ================================== */
+        .hero-full-width {
+            /* Full width section, removing container padding */
+            padding: 0 !important; 
+            margin: 0 !important;
+            /* Using a fluid container for max width */
         }
-        .hero-text {
-            flex: 1; /* Takes up the left side space */
-            padding-right: 30px; /* Space between text and carousel */
-        }
-        .hero-carousel {
-            flex: 1; /* Takes up the right side space */
-            max-width: 50%; /* Limit the width of the carousel */
-            border-radius: 8px; /* Optional styling */
-            overflow: hidden; /* Ensures image corners are rounded */
+        #heroCarousel {
+            position: relative; /* Base for absolute text positioning */
+            width: 100%;
         }
         .carousel-item img {
-            height: 400px; /* Set a fixed height for consistency */
-            object-fit: cover; /* Ensures images cover the area without distortion */
+            /* Enforcing the user-requested size */
+            height: 456px; 
+            width: 100%;
+            object-fit: cover;
+        }
+        .carousel-overlay {
+            position: absolute;
+            top: 20%; /* Position from the top */
+            left: 5%; /* Position from the left */
+            z-index: 10; /* Ensure text is above the image */
+            color: white; /* Default text color */
+            padding: 15px;
+            /* Optional: Add a subtle background or shadow for readability over busy images */
+            /* background: rgba(0, 0, 0, 0.4); */
+            border-radius: 8px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 1.0);
+        }
+        .carousel-overlay .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            color: white; 
+            margin-bottom: 0.5rem;
+        }
+        .carousel-overlay .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: white; 
+        }
+        /* Style for the typing/animated text */
+        #animated-subtitle {
+            font-weight: bold;
+            color: #FFD700; /* Bright gold for visibility on dark images */
+            display: inline-block;
+            min-width: 150px; /* Prevent layout shift */
+        }
+         /* Style for the Marquee */
+        .welcome-marquee {
+            background-color: #ff0000; /* Red background for contrast */
+            color: white;
+            padding: 5px 0;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0; /* Remove bottom margin here */
+        }
+        /* Style for the job cards (retained from previous request) */
+        .job-card-image-format {
+            /* Add your job card styling here */
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .job-list-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
     </style>
 </head>
@@ -71,51 +126,56 @@ $conn->close();
 
 <?php include($navbar_path); ?>
 
+<!-- WELCOME MARQUEE SECTION -->
+<div class="welcome-marquee">
+    <marquee behavior="scroll" direction="left">WELCOME TO ROHA JOBS! Find your next career opportunity today.</marquee>
+</div>
+<!-- END WELCOME MARQUEE SECTION -->
 
-<section class="hero container d-flex align-items-center pt-5">
 
-    <div class="hero-text">
-        <h1 class="hero-title">Roha Jobs</h1>
-        <p class="hero-subtitle">Tap Into Your Next Opportunity</p>
-
-        <a href="find_jobs.php" class="btn hero-btn mt-3 px-4 py-3" style="color:#AA8B3F">Find Jobs</a>
-
-        <form action="find_jobs.php" method="GET" class="search-box mt-5 p-3 d-flex align-items-center">
-            <input type="text" name="query" class="form-control search-input" placeholder="Search jobs"> 
-            <button type="submit" class="btn search-btn ms-2 px-4">Search</button>
-        </form>
-
-    </div>
-
-    <div class="hero-carousel">
-        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-            
-            <div class="carousel-inner">
-                <?php 
-                // Define your 6 image paths here
-                $images = ['slide1.jpg', 'slide2.jpg', 'slide3.jpg', 'slide4.jpg', 'slide5.jpg', 'slide6.jpg'];
-                
-                foreach ($images as $index => $image): 
-                    // The first item MUST have the 'active' class
-                    $active_class = ($index === 0) ? 'active' : '';
-                ?>
-                <div class="carousel-item <?php echo $active_class; ?>">
-                    <img src="images/<?php echo htmlspecialchars($image); ?>" class="d-block w-100" alt="Job Slider Image <?php echo $index + 1; ?>">
-                </div>
-                <?php endforeach; ?>
-            </div>
-            
-            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+<!-- UPDATED HERO SECTION: Full-Width Carousel with Text Overlay -->
+<section class="hero-full-width container-fluid">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+        
+        <!-- TEXT OVERLAY CONTAINER -->
+        <div class="carousel-overlay">
+            <h1 class="hero-title">Roha Jobs</h1>
+            <p class="hero-subtitle">
+                <span id="static-text">We are </span>
+                <span id="animated-subtitle"></span>
+                .
+            </p>
         </div>
+        <!-- END TEXT OVERLAY CONTAINER -->
+
+        <div class="carousel-inner">
+            <?php 
+            // Define your 6 image paths here (ensure these paths are correct, e.g., using /zele/images/)
+            // NOTE: Ensure your images are named slide1.jpg, slide2.jpg, etc., and are 1280x456 px.
+            $images = ['slide1.jpg', 'slide2.jpg', 'slide3.jpg', 'slide4.jpg', 'slide5.jpg', 'slide6.jpg'];
+            
+            foreach ($images as $index => $image): 
+                // The first item MUST have the 'active' class
+                $active_class = ($index === 0) ? 'active' : '';
+            ?>
+            <div class="carousel-item <?php echo $active_class; ?>">
+                <!-- Using absolute path /zele/images/ as previously fixed -->
+                <img src="/zele/images/<?php echo htmlspecialchars($image); ?>" class="d-block w-100" alt="Job Slider Image <?php echo $index + 1; ?>">
+            </div>
+            <?php endforeach; ?>
+        </div>
+        
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    </section>
+</section>
+<!-- END UPDATED HERO SECTION -->
 
 
 <section class="featured-jobs-section py-5">
@@ -144,7 +204,7 @@ $conn->close();
                         </div>
                     </div>
 
-                    <span class="category-tag" style="color: #AA8B3F;"><?php echo htmlspecialchars($job['category']); ?></span>
+                    <span class="category-tag" style="color: #ffff; background-color:#ff0000;"><?php echo htmlspecialchars($job['category']); ?></span>
 
                     <div class="job-main-content">
                         <div class="job-details-left">
@@ -168,7 +228,8 @@ $conn->close();
 
                     <div class="job-footer mt-4">
                         <div></div> 
-                        <a href="apply_job.php?id=<?php echo $job['id']; ?>" class="btn btn-category btn-apply-now">Apply Now</a>
+                        <!-- Link uses absolute path -->
+                        <a href="/zele/apply_job.php?id=<?php echo $job['id']; ?>" class="btn btn-category btn-apply-now">Apply Now</a>
                     </div>
                 </div>
                 <?php endforeach; ?>
@@ -179,6 +240,15 @@ $conn->close();
         
     </div>
 </section>
+
+<!-- SHOW MORE JOBS BUTTON SECTION -->
+<section class="text-center pb-5">
+    <div class="container">
+        <!-- Link uses absolute path -->
+        <a href="/zele/find-jobs.php" class="btn btn-lg btn-primary" style="background-color: #AA8B3F; border-color: #AA8B3F;">Show More Jobs</a>
+    </div>
+</section>
+<!-- END SHOW MORE JOBS BUTTON SECTION -->
 
 <section class="services-section py-5">
     <div class="container">
@@ -222,9 +292,58 @@ $conn->close();
 </section>
 
 
-<?php include($footer_path); ?>
+<?php 
+// Include Footer
+if (file_exists($footer_path)) {
+    include($footer_path);
+}
+?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // JAVASCRIPT FOR DYNAMIC SUBTITLE EFFECT
+    document.addEventListener('DOMContentLoaded', function() {
+        const words = ["speedy", "availability", "trusted", "reliable"];
+        let wordIndex = 0;
+        const animatedSubtitle = document.getElementById('animated-subtitle');
+
+        function typeEffect(text, callback) {
+            let i = 0;
+            const typing = setInterval(() => {
+                if (i < text.length) {
+                    animatedSubtitle.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typing);
+                    setTimeout(callback, 1000); // Wait 1 second before deleting
+                }
+            }, 100); // Typing speed
+        }
+
+        function deleteEffect(callback) {
+            let text = animatedSubtitle.textContent;
+            const deleting = setInterval(() => {
+                if (text.length > 0) {
+                    text = text.slice(0, -1);
+                    animatedSubtitle.textContent = text;
+                } else {
+                    clearInterval(deleting);
+                    wordIndex = (wordIndex + 1) % words.length;
+                    setTimeout(callback, 500); // Wait 0.5 second before typing next word
+                }
+            }, 50); // Deleting speed
+        }
+
+        function loopWords() {
+            typeEffect(words[wordIndex], () => {
+                deleteEffect(loopWords);
+            });
+        }
+
+        loopWords();
+    });
+</script>
 
 </body>
 </html>
